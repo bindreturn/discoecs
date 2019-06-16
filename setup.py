@@ -9,7 +9,7 @@ def long_description():
 
 setuptools.setup(
     name="discoecs",
-    version="2.2.0",
+    version="2.2.1",
     author="bindreturn",
     author_email="bindreturn@protonmail.ch",
     description="Easy to setup AWS ECS autodiscovery for Prometheus",

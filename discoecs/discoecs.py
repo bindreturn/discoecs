@@ -72,7 +72,7 @@ def main():
     parser.add_argument('-v', action="store_true", default=False)
     parser.add_argument('-f', type=str, required=False, default="ecs-tasks.json",
                         help="Output directory to write Prometheus ECS configs to")
-    parser.add_argument('-p', type=int, required=False, default=80,
+    parser.add_argument('-p', type=int, required=False, default=None,
                         help="Default metrics port")
     parser.add_argument('-i', type=int, required=False, default=60,
                         help="Poll interval, seconds")
@@ -87,7 +87,7 @@ def main():
     ecs_client = boto3.client('ecs')
 
     if args.p is None:
-        default_metrics_port = os.environ.get("DEFAULT_METRICS_PORT", 80)
+        default_metrics_port = int(os.environ.get("DEFAULT_METRICS_PORT", 80))
     else:
         default_metrics_port = args.p
 
