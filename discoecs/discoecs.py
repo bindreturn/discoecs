@@ -86,10 +86,15 @@ def main():
 
     ecs_client = boto3.client('ecs')
 
+    if args.p is None:
+        default_metrics_port = os.environ.get("DEFAULT_METRICS_PORT", 80)
+    else:
+        default_metrics_port = args.p
+
     while True:
         try:
             cluster_tasks = get_cluster_tasks(ecs_client)
-            items = to_config_items(cluster_tasks, default_port=args.p)
+            items = to_config_items(cluster_tasks, default_port=default_metrics_port)
             configuration = json.dumps(items, indent=4)
             with open(args.f, "w+") as fo:
                 fo.write(configuration)
